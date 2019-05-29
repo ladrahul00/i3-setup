@@ -228,6 +228,7 @@ bindsym XF86AudioLowerVolume exec $volumepath/volume -np -d $volumestep -t $stat
 bindsym XF86AudioMute        exec $volumepath/volume -mn -t $statuscmd -u $statussig
 
 exec_always nm-applet
+exec_always ~/i3-setup/i3-battery-popup -L 25 -n -t 10s
 
 # Open file explorer
 bindsym $mod+Shift+o exec xdg-open ~
