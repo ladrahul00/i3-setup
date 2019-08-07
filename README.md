@@ -3,6 +3,8 @@ My i3wm config
 
 Install
 rofi
+
+# For ubuntu
 compton
 
 # Not necessary
