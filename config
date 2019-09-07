@@ -268,3 +268,4 @@ bindsym $mod+b exec rofi -show ssh -theme i3-setup/material.rasi
 
 # For fading effect
 exec_always compton
+exec_always timedatectl set-ntp on
