@@ -1,0 +1,39 @@
+#!/bin/bash
+readarray -t output <<< $(upower -i $(upower -e | grep BAT) | grep --color=never -E "state|to\ full|to\ empty|percentage")
+
+src=""
+time_left=""
+prect=""
+
+## now loop through the above array
+for i in "${output[@]}"
+do
+	echo "$i"
+	IFS=':' read -r -a battr_arr <<< "$i"
+	
+	keyval="`echo ${battr_arr[0]} | sed 's/[[:space:]]//g'`"
+	echo ${keyval}
+
+	if [ $keyval == "state" ]
+	then
+		if [ ${battr_arr[1]} == "discharging" ]
+		then
+			src="BAT"
+		else
+			src="CHAR"
+		fi
+	fi
+	if [ $keyval == "timetoempty" ]
+	then
+		time_left=${battr_arr[1]}
+	fi
+	if [ $keyval == "timetofull" ]
+	then
+		time_left=${battr_arr[1]}
+	fi
+	if [ $keyval == "percentage" ]
+	then
+		prect=${battr_arr[1]}
+	fi
+done
+echo "<span>${src} ${prect} | ${time_left}</span>"
