@@ -169,7 +169,7 @@ bindsym $mod+p  exec playerctl play
 bindsym $mod+Shift+p exec playerctl pause
 
 # Lock screen
-bindsym $mod+Delete exec --no-startup-id "i3lock -c 000000"
+bindsym $mod+Delete exec --no-startup-id "i3lock -c 000000 && sleep 5"
 
 # Setting default wallpaper
 exec_always feh --bg-scale /home/anonymous/Pictures/wallpaper.png
@@ -228,7 +228,7 @@ exec_always nm-applet
 exec_always ~/i3-setup/i3-battery-popup -L 25 -n -t 10s
 
 # Open file explorer
-bindsym $mod+Shift+o exec xdg-open ~
+bindsym $mod+Shift+o exec gnome-terminal -e ranger
 
 
 # Color Scheme
@@ -271,3 +271,20 @@ exec_always compton
 exec_always timedatectl set-ntp on
 
 for_window [class="Yad"] floating enable
+
+set $Locker i3lock -c 000000 && sleep 1
+set $mode_system System (l) lock, (e) logout, (s) suspend, (h) hibernate, (r) reboot, (Shift+s) shutdown
+mode "$mode_system" {
+    bindsym l exec --no-startup-id $Locker, mode "default"
+    bindsym e exec --no-startup-id i3-msg exit, mode "default"
+    bindsym s exec --no-startup-id $Locker && systemctl suspend, mode "default"
+    bindsym h exec --no-startup-id $Locker && systemctl hibernate, mode "default"
+    bindsym r exec --no-startup-id systemctl reboot, mode "default"
+    bindsym Shift+s exec --no-startup-id systemctl poweroff -i, mode "default"  
+
+    # back to normal: Enter or Escape
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+}
+
+bindsym $mod+Shift+X mode "$mode_system"
