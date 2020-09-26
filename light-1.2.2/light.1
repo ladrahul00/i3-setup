@@ -1,0 +1,92 @@
+.\"  -*- nroff -*-
+.Dd August 4, 2018
+.Os GNU/Linux
+.Dt LIGHT 1 URM
+.Sh NAME
+.Nm light
+.Nd a program to control backlight controllers
+.Sh SYNOPSIS
+.Nm light
+.Op Ar OPTIONS
+.Op Ar VALUE
+.Sh DESCRIPTION
+.Nm
+is a program to control backlight display and keyboard controllers under
+GNU/Linux.
+.Pp
+.Bl -bullet -compact
+.It
+Operates independently of X (X-Window)
+.It
+Can automatically figure out the best controller to use, making full use
+of the underlying hardware
+.It
+Supports a minimum cap on the brightness value, as some controllers set
+the display to be pitch black at a vaĺue of 0 (or higher)
+.El
+.Sh COMMANDS
+The following unique commands are supported:
+.Pp
+.Bl -tag -width Ds
+.It Fl H , Fl h
+Show help text and exit
+.It Fl V
+Show program version and exit
+.It Fl L
+List available devices
+.It Fl A
+Increase brightness by value
+.It Fl U
+Decrease brightness by value
+.It Fl S
+Set brightness to value
+.It Fl G
+Get brightness, default
+.It Fl N
+Set minimum brightness to value
+.It Fl P
+Get minimum brightness
+.It Fl O
+Save current brightness
+.It Fl I
+Restore previously saved brightness
+.El
+.Sh OPTIONS
+The behavior of the above commands can be modified using these options:
+.Pp
+.Bl -tag -width Ds
+.It Fl r
+Interpret input and output values in raw mode
+.It Fl s Ar PATH
+Specify device target path.  Use
+.Fl L
+to list available devices
+.It Fl v Ar LEVEL
+Set verbosity level, by default
+.Nm
+only outputs read values:
+.Pp
+.Bl -tag -width 0: -compact
+.It 0:
+Read values
+.It 1:
+Read values, Errors
+.It 2:
+Read values, Errors, Warnings
+.It 3:
+Read values, Errors, Warnings, Notices
+.El
+.El
+.Sh FILES
+When run in its classic SUID root mode
+.Nm
+caches settings and current brightness in
+.Pa /etc/light .
+In its non-privileged mode of operation the
+.Pa ~/.cache/light
+directory is used instead.
+.Sh AUTHORS
+Copyright \(co 2012-2018 Fredrik Haikarainen
+.Pp
+This is free software, see the source for copying conditions.  There is NO
+warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE
